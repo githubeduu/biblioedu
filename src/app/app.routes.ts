@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
-import { LibrosListComponent } from './components/libros-list/libros-list.component';
-import { LibroFormComponent } from './components/libro-form/libro-form.component';
+import { CategoryBookComponent } from './components/category-book/category-book.component';
+import { MantenedorProductosComponent } from './components/mantenedor-productos/mantenedor-productos.component';
+import { IndexComponent } from './components/index/index.component';
 
 export const routes: Routes = [
-    { path: 'libros', component: LibrosListComponent },
-    { path: 'libros/nuevo', component: LibroFormComponent },
-    { path: 'libros/editar/:id', component: LibroFormComponent }, // Ruta para editar un libro
-    { path: '', redirectTo: '/libros', pathMatch: 'full' } // Redirige a /libros por defecto
+    { path: '', redirectTo: '/index', pathMatch: 'full' },
+    { path: 'index', component: IndexComponent }, 
+    { path: 'mantenedorProductos', component: MantenedorProductosComponent },
+    { path: 'categoryBook', component: CategoryBookComponent }
 ];
 

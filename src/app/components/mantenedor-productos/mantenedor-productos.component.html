@@ -1,0 +1,140 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container-fluid">
+      <img src="assets/images/logo/logo.png" alt="Logo Biblioedu">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/index">Inicio <span class="sr-only"></span></a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Libros
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/categoryBook']">Libros de Aventuras</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <!-- <li class="nav-item">
+            <a class="nav-link cursor-pointer" [routerLink]="['/cuenta']">Mi Cuenta</a>
+          </li> -->
+          <!-- <li class="nav-item" *ngIf="currentUser && currentUser.rolId === 1"> -->
+            <a class="nav-link" [routerLink]="['/mantenedorProductos']">Mantenedor Productos</a>
+          <!-- </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>titulo</th>
+      <th>autor</th>
+      <th>anioPublicacion</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td data-label="titulo">{{ product.titulo }}</td>
+      <td data-label="autor">{{ product.autor }}</td>
+      <!-- <td data-label="Imagen"><img [src]="product.imagenurl" alt="{{ product.nombre }}" style="max-width: 100px;"></td> -->
+      <td data-label="anioPublicacion">{{ product.anioPublicacion }}</td>
+      <!-- <td data-label="Categoría">{{ product.categoriaid }}</td> -->
+      <td class="btn-accion" data-label="Acciones">
+        <button class="btn btn-primary btn-editar" (click)="editarProducto(product.id)">Editar</button>
+        <button class="btn btn-danger btn-eliminar" (click)="openDeleteModal(product)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  
+  <!-- Modal -->
+  <div *ngIf="showModal" class="modal" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Editar Producto' : 'Agregar Producto' }}</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="guardarProducto()">
+            <!-- Form fields go here -->
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" class="form-control" id="nombre" [(ngModel)]="nuevoProducto.nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <input type="text" class="form-control" id="descripcion" [(ngModel)]="nuevoProducto.descripcion" name="descripcion" required>
+            </div>
+            <div class="form-group">
+              <label for="imagenurl">Imagen URL</label>
+              <input type="text" class="form-control" id="imagenurl" [(ngModel)]="nuevoProducto.imagenurl" name="imagenurl" required>
+            </div>
+            <div class="form-group">
+              <label for="precio">Precio</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="precio" required [(ngModel)]="nuevoProducto.precio" name="precio">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="descuento">¿Tiene descuento?</label>
+              <select class="form-control" id="descuento" [(ngModel)]="nuevoProducto.descuento" name="descuento">
+                <option [ngValue]="true">Sí</option>
+                <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="categoria">Categoría</label>
+              <select class="form-control" id="categoria" required [(ngModel)]="nuevoProducto.categoriaid" name="categoriaid">
+                <option [ngValue]="1">Xbox</option>
+                <option [ngValue]="2">Nintendo</option>
+                <option [ngValue]="3">PlayStation 4</option>
+                <option [ngValue]="4">PlayStation 5</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Guardar' }}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Confirmation Modal -->
+<div *ngIf="showDeleteModal" class="modal" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar Eliminación</h5>
+        <button type="button" class="close" (click)="closeDeleteModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar este producto?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarProducto()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+    
+    
+    
+
