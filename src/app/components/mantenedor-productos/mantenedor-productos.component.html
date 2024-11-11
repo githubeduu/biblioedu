@@ -30,12 +30,16 @@
     </div>
   </nav>
 </header>
+<div class="barra-acciones d-flex justify-content-center my-4">
+  <button class="btn btn-agregar" (click)="openAddBookModal()">Agregar Libro</button>
+</div>  
 <table class="table table-striped">
   <thead>
     <tr>
       <th>titulo</th>
       <th>autor</th>
       <th>anioPublicacion</th>
+      <th>genero</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -45,7 +49,7 @@
       <td data-label="autor">{{ product.autor }}</td>
       <!-- <td data-label="Imagen"><img [src]="product.imagenurl" alt="{{ product.nombre }}" style="max-width: 100px;"></td> -->
       <td data-label="anioPublicacion">{{ product.anioPublicacion }}</td>
-      <!-- <td data-label="Categoría">{{ product.categoriaid }}</td> -->
+      <td data-label="genero">{{ product.genero }}</td>
       <td class="btn-accion" data-label="Acciones">
         <button class="btn btn-primary btn-editar" (click)="editarProducto(product.id)">Editar</button>
         <button class="btn btn-danger btn-eliminar" (click)="openDeleteModal(product)">Eliminar</button>
@@ -69,41 +73,30 @@
           <form (ngSubmit)="guardarProducto()">
             <!-- Form fields go here -->
             <div class="form-group">
-              <label for="nombre">Nombre</label>
-              <input type="text" class="form-control" id="nombre" [(ngModel)]="nuevoProducto.nombre" name="nombre" required>
+              <label for="titulo">Titulo</label>
+              <input type="text" class="form-control" id="titulo" [(ngModel)]="nuevoProducto.titulo" name="titulo" required>
             </div>
             <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <input type="text" class="form-control" id="descripcion" [(ngModel)]="nuevoProducto.descripcion" name="descripcion" required>
+              <label for="autor">Autor</label>
+              <input type="text" class="form-control" id="autor" [(ngModel)]="nuevoProducto.autor" name="autor" required>
+            </div>
+            <div class="form-group">
+              <label for="anioPublicacion">Año de Publicación</label>
+              <input type="text" class="form-control" id="anioPublicacion" [(ngModel)]="nuevoProducto.anioPublicacion" name="anioPublicacion" required>
+            </div>
+            <div class="form-group">
+              <label for="genero">Género</label>
+              <select class="form-control" id="genero" required [(ngModel)]="nuevoProducto.genero" name="genero">
+                <option [ngValue]="'Adulto'">Adulto</option>
+                <option [ngValue]="'Infantil'">Infantil</option>
+                <option [ngValue]="'Realismo mágico'">Realismo mágico</option>
+                <option [ngValue]="'Fantasía'">Fantasía</option>
+                <option [ngValue]="'Aventura'">Aventura</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="imagenurl">Imagen URL</label>
               <input type="text" class="form-control" id="imagenurl" [(ngModel)]="nuevoProducto.imagenurl" name="imagenurl" required>
-            </div>
-            <div class="form-group">
-              <label for="precio">Precio</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">$</span>
-                </div>
-                <input type="number" class="form-control" id="precio" required [(ngModel)]="nuevoProducto.precio" name="precio">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="descuento">¿Tiene descuento?</label>
-              <select class="form-control" id="descuento" [(ngModel)]="nuevoProducto.descuento" name="descuento">
-                <option [ngValue]="true">Sí</option>
-                <option [ngValue]="false">No</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="categoria">Categoría</label>
-              <select class="form-control" id="categoria" required [(ngModel)]="nuevoProducto.categoriaid" name="categoriaid">
-                <option [ngValue]="1">Xbox</option>
-                <option [ngValue]="2">Nintendo</option>
-                <option [ngValue]="3">PlayStation 4</option>
-                <option [ngValue]="4">PlayStation 5</option>
-              </select>
             </div>
             <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Guardar' }}</button>
           </form>

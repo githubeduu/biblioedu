@@ -37,7 +37,8 @@ export class MantenedorProductosComponent implements OnInit {
     titulo: '',
     autor: '',    
     anioPublicacion: '',
-    //imagenurl: ''
+    genero: '',
+    imagenurl: ''
   };
   productoSeleccionado: any = null;
   showDeleteModal: boolean = false;
@@ -119,6 +120,18 @@ export class MantenedorProductosComponent implements OnInit {
         console.error('Error fetching products:', error);
       }
     );
+  }
+
+  openAddBookModal() {
+    this.isEditMode = false;
+    this.nuevoProducto = {
+      titulo: '',
+      autor: '',
+      anioPublicacion: '',
+      imagenurl: '',
+      categoriaid: 'Aventura'
+    };
+    this.showModal = true;
   }
 
   /**

@@ -35,11 +35,12 @@
     <div class="row">
       <article class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
         <div class="card">
-          <!-- <img [src]="product.imagenurl" class="card-img-top" alt="{{product.nombre}}"> -->
+          <img [src]="product.imagenurl" class="card-img-top" alt="{{product.nombre}}">
           <div class="card-body">
             <h5 class="card-title">{{product.titulo}}</h5>
             <p class="card-text">{{product.autor}}</p>
             <p class="card-text">{{product.anioPublicacion}}</p>
+            <p class="card-text">{{product.genero}}</p>
             <!-- <p class="card-text price">Precio: {{product.precio}} <span>Descuento: {{product.descuento ? 'Sí' : 'No'}}</span></p> -->
             <!-- <button class="btn btn-primary" (click)="agregarAlCarro({ nombre: product.nombre, precio: product.precio, id: product.id })">Agregar al Carrito</button> -->
           </div>
