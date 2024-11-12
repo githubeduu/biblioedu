@@ -4,6 +4,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
+import { UserService } from '../../services/usuario.service';
+import { CarroService } from '../../services/carro.service';
 
 /**
  * @description
@@ -23,11 +25,11 @@ import { LibroService } from '../../services/libro.service';
 })
 export class MantenedorProductosComponent implements OnInit {
   constructor(
-    //private userService: UserService,
+    private userService: UserService,
     private libroService: LibroService
   ) {}
 
-  //carroService = inject(CarroService);
+  carroService = inject(CarroService);
   currentUser: any;
   showModal: boolean = false;
   isEditMode: boolean = false;
@@ -38,7 +40,8 @@ export class MantenedorProductosComponent implements OnInit {
     autor: '',    
     anioPublicacion: '',
     genero: '',
-    imagenurl: ''
+    imagenurl: '',
+    precio: ''
   };
   productoSeleccionado: any = null;
   showDeleteModal: boolean = false;
@@ -88,24 +91,25 @@ export class MantenedorProductosComponent implements OnInit {
       titulo: '',
       autor: '',    
       anioPublicacion: '',
-      //imagenurl: ''
+      imagenurl: '',
+      precio: 0
     };
   }
 
   /**
    * Cierra la sesión del usuario actual.
    */
-  // logout() {
-  //   this.userService.logout();
-  //   this.currentUser = null;
-  // }
+  logout() {
+    this.userService.logout();
+    this.currentUser = null;
+  }
 
   /**
    * Inicializa el componente.
    * Obtiene la lista de productos desde el servicio.
    */
   ngOnInit(): void {
-    //this.currentUser = this.userService.getCurrentUser(); 
+    this.currentUser = this.userService.getCurrentUser(); 
     this.libroService.getAllBook().subscribe(
       (data: any[]) => {
         console.log('Received data:', data);
@@ -129,7 +133,8 @@ export class MantenedorProductosComponent implements OnInit {
       autor: '',
       anioPublicacion: '',
       imagenurl: '',
-      categoriaid: 'Aventura'
+      categoriaid: 'Aventura',
+      precio: 0
     };
     this.showModal = true;
   }

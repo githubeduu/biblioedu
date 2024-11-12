@@ -1,0 +1,122 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container-fluid">
+      <img src="assets/images/logo/logo.png" alt="Logo Biblioedu">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/index">Inicio <span class="sr-only"></span></a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Libros
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/categoryBook']">Todas las categorias</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" *ngIf="currentUser; else guest">
+          <li class="nav-item">
+            <span class="nav-link">Hola, {{ currentUser?.nombre }}</span> <!-- Mostrar nombre completo -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer" [routerLink]="['/cuenta']">Mi Cuenta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer" (click)="logout()">Cerrar Sesión</a>
+          </li>
+          <!-- Mostrar Mantenedor Productos si el rolId es 1 -->
+          <li class="nav-item" *ngIf="currentUser && currentUser.rolId === 1">
+            <a class="nav-link" [routerLink]="['/mantenedorProductos']">Mantenedor Productos</a>
+          </li>
+        </ul>
+        <ng-template #guest>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/categoryRegistro']">Registro Usuario</a>
+            </li>
+          </ul>
+        </ng-template>
+        <ul class="navbar-nav ml-auto">
+          <li>
+            <a [routerLink]="['/carro']" class="btn btn-outline-danger">
+              <i class="bi bi-cart-fill"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <section id="register" class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-md-6 px-5">
+        <form [formGroup]="miFormulario" (ngSubmit)="submitForm()">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="username" formControlName="username" placeholder="Nombre de usuario">
+            <label for="username">Nombre de usuario</label>
+            <div *ngIf="formSubmitted && miFormulario.get('username')?.errors?.['required']" class="text-danger">
+              Por favor, introduce un nombre de usuario.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña">
+            <label for="password">Contraseña</label>
+            <div *ngIf="formSubmitted && miFormulario.get('password')?.errors?.['required']" class="text-danger">
+              Por favor, introduce una contraseña.
+            </div>
+            <div *ngIf="formSubmitted && miFormulario.get('password')?.errors?.['noNumber']" class="text-danger">
+              La contraseña debe contener al menos un número.
+            </div>
+            <div *ngIf="formSubmitted && miFormulario.get('password')?.errors?.['noSpecialCharacter']" class="text-danger">
+              La contraseña debe contener al menos un carácter especial.
+            </div>
+            <div *ngIf="formSubmitted && miFormulario.get('password')?.errors?.['noLetter']" class="text-danger">
+              La contraseña debe contener al menos una letra.
+            </div>
+            <div *ngIf="formSubmitted && miFormulario.get('password')?.errors?.['invalidLength']" class="text-danger">
+              La contraseña debe tener entre 8 y 20 caracteres.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nombre completo">
+            <label for="name">Nombre completo</label>
+            <div *ngIf="formSubmitted && miFormulario.get('name')?.errors?.['required']" class="text-danger">
+              Por favor, introduce tu nombre completo.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="rut" formControlName="rut" placeholder="RUT">
+            <label for="rut">RUT</label>
+            <div *ngIf="formSubmitted && miFormulario.get('rut')?.errors?.['required']" class="text-danger">
+              Por favor, introduce tu RUT.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="direccion" formControlName="direccion" placeholder="Dirección">
+            <label for="direccion">Dirección</label>
+            <div *ngIf="formSubmitted && miFormulario.get('direccion')?.errors?.['required']" class="text-danger">
+              Por favor, introduce tu dirección.
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="comuna" formControlName="comuna" placeholder="Comuna">
+            <label for="comuna">Comuna</label>
+            <div *ngIf="formSubmitted && miFormulario.get('comuna')?.errors?.['required']" class="text-danger">
+              Por favor, introduce tu comuna.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+

@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, Inject, PLATFORM_ID, Renderer2 } 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from '../../services/usuario.service';
 
 @Component({
   standalone: true,
@@ -18,17 +19,17 @@ export class IndexComponent implements AfterViewInit {
     private renderer: Renderer2,
     private el: ElementRef,
     @Inject(PLATFORM_ID) private platformId: Object,
-    //private userService: UserService
+    private userService: UserService
   ) {}
 
-  // ngOnInit() {
-  //   this.currentUser = this.userService.getCurrentUser();
-  // }
+  ngOnInit() {
+    this.currentUser = this.userService.getCurrentUser();
+  }
 
-  // logout() {
-  //   this.userService.logout();
-  //   this.currentUser = null;
-  // }
+  logout() {
+    this.userService.logout();
+    this.currentUser = null;
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

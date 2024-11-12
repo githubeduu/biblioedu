@@ -14,17 +14,41 @@
               Libros
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" [routerLink]="['/categoryBook']">Libros de Aventuras</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/categoryBook']">Todas las categorias</a></li>
             </ul>
           </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item">
+        <ul class="navbar-nav ml-auto" *ngIf="currentUser; else guest">
+          <li class="nav-item">
+            <span class="nav-link">Hola, {{ currentUser?.nombre }}</span> <!-- Mostrar nombre completo -->
+          </li>
+          <li class="nav-item">
             <a class="nav-link cursor-pointer" [routerLink]="['/cuenta']">Mi Cuenta</a>
-          </li> -->
-          <!-- <li class="nav-item" *ngIf="currentUser && currentUser.rolId === 1"> -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer" (click)="logout()">Cerrar Sesión</a>
+          </li>
+          <!-- Mostrar Mantenedor Productos si el rolId es 1 -->
+          <li class="nav-item" *ngIf="currentUser && currentUser.rolId === 1">
             <a class="nav-link" [routerLink]="['/mantenedorProductos']">Mantenedor Productos</a>
-          <!-- </li> -->
+          </li>
+        </ul>
+        <ng-template #guest>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/categoryRegistro']">Registro Usuario</a>
+            </li>
+          </ul>
+        </ng-template>
+        <ul class="navbar-nav ml-auto">
+          <li>
+            <a [routerLink]="['/carro']" class="btn btn-outline-danger">
+              <i class="bi bi-cart-fill"></i>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -33,7 +57,7 @@
 <main>
   <section id="games" class="container mt-4">
     <div class="row">
-      <article class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
+      <article class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
         <div class="card">
           <img [src]="product.imagenurl" class="card-img-top" alt="{{product.nombre}}">
           <div class="card-body">
@@ -41,8 +65,8 @@
             <p class="card-text">{{product.autor}}</p>
             <p class="card-text">{{product.anioPublicacion}}</p>
             <p class="card-text">{{product.genero}}</p>
-            <!-- <p class="card-text price">Precio: {{product.precio}} <span>Descuento: {{product.descuento ? 'Sí' : 'No'}}</span></p> -->
-            <!-- <button class="btn btn-primary" (click)="agregarAlCarro({ nombre: product.nombre, precio: product.precio, id: product.id })">Agregar al Carrito</button> -->
+            <p class="card-text price">Precio: {{product.precio}}</p>
+            <button class="btn btn-primary" (click)="agregarAlCarro({ nombre: product.nombre, precio: product.precio, id: product.id })">Agregar al Carrito</button>
           </div>
         </div>
       </article>
