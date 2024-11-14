@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
 import { LibroService } from '../../services/libro.service';
+import { CarroService } from '../../services/carro.service';
+import { UserService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-category-book',
@@ -12,26 +14,25 @@ import { LibroService } from '../../services/libro.service';
   styleUrls: ['./category-book.component.scss']
 })
 export class CategoryBookComponent implements OnInit {
-  //currentUser: any;
+  currentUser: any;
   products: any[] = [];
   filteredProducts: any[] = [];
 
   constructor(
-    private libroService: LibroService
-    // private carroService: CarroService,
-    // private userService: UserService,
+    private libroService: LibroService,
+    private carroService: CarroService,
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {
-    //this.currentUser = this.userService.getCurrentUser();
+    this.currentUser = this.userService.getCurrentUser();
 
-    this.libroService.getBookByGenero('Aventura').subscribe(
+    this.libroService.getAllBook().subscribe(
       (data: any[]) => {
         console.log('Received data:', data); // Verifica los datos recibidos en la consola
         if (Array.isArray(data)) {
           this.products = data;
-          this.filteredProducts = this.products.filter(product => product.genero === 'Aventura');
-          console.log('Filtered products:', this.filteredProducts); // Verifica productos filtrados
+          console.log('Products:', this.products); // Verifica productos filtrados
         } else {
           console.error('Response format is unexpected:', data);
           this.products = []; // Manejo de respuesta inesperada
@@ -44,13 +45,13 @@ export class CategoryBookComponent implements OnInit {
     );
   }
 
-  // logout() {
-  //   this.userService.logout();
-  //   this.currentUser = null;
-  // }
+  logout() {
+    this.userService.logout();
+    this.currentUser = null;
+  }
 
-  // agregarAlCarro(producto: any) {
-  //   this.carroService.agregarAlCarro(producto);
-  //   alert('Producto Agregado correctamente');
-  // }
+  agregarAlCarro(producto: any) {
+    this.carroService.agregarAlCarro(producto);
+    alert('Producto Agregado correctamente');
+  }
 }
