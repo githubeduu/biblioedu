@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CarroService } from '../../services/carro.service';
 import { UserService } from '../../services/usuario.service';
 /**
@@ -26,7 +26,10 @@ import { UserService } from '../../services/usuario.service';
 export class CarroComponent {
   carroService = inject(CarroService);
   currentUser: any;
-  constructor( private userService: UserService
+  isLoading = false; // Agrega un estado de carga
+  constructor( 
+      private userService: UserService,
+      private router: Router
   ) {}
 
   ngOnInit() {
@@ -54,6 +57,15 @@ export class CarroComponent {
    */
   borrarDeCarro(item : any){
     this.carroService.borrarDeCarro(item)
+  }
+
+  
+  pagar() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.router.navigate(['/payment']);
+      this.isLoading = false;
+    }, 2000); // Simula un tiempo de carga de 2 segundos
   }
 
 }

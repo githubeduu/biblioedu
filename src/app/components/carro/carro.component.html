@@ -76,7 +76,10 @@
         <div class="card-body">
           <h5 class="card-title">Total</h5>
           <p class="card-text">Total: {{ carroService.getTotal() }}</p>
-          <button type="button" class="btn btn-primary">Pagar</button>
+          <button type="button" class="btn btn-primary" (click)="pagar()" [disabled]="isLoading">Pagar</button>
+          <div *ngIf="isLoading" class="spinner">
+            <span>Cargando...</span>
+          </div>
         </div>
       </div>
     </div>
