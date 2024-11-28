@@ -8,8 +8,8 @@ import { UserService } from '../../services/usuario.service';
   selector: 'app-payment-component',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './payment-component.component.html',
-  styleUrl: './payment-component.component.scss'
+  templateUrl: './payment.component.html',
+  styleUrl: './payment.component.scss'
 })
 export class PaymentComponent implements OnInit {
   items: any[] = [];
