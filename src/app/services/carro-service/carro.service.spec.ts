@@ -6,7 +6,7 @@ describe('CarroService', () => {
   let service: CarroService;
 
   beforeEach(() => {
-    localStorage.clear(); // Limpia el localStorage antes de cada prueba
+    localStorage.clear();
     TestBed.configureTestingModule({
       providers: [CarroService],
     });
@@ -14,7 +14,7 @@ describe('CarroService', () => {
   });
 
   afterEach(() => {
-    localStorage.clear(); // Limpia el localStorage después de cada prueba
+    localStorage.clear();
   });
 
   it('debería crearse correctamente', () => {
@@ -52,8 +52,8 @@ describe('CarroService', () => {
     const producto = { id: 1, nombre: 'Producto 1', precio: 100 };
     service.agregarAlCarro(producto);
 
-    service.sumarCantidad(1); // Cantidad inicial: 2
-    service.restarCantidad(1); // Cantidad final: 1
+    service.sumarCantidad(1);
+    service.restarCantidad(1);
     const items = service.getItems();
     expect(items[0].cantidad).toBe(1);
   });
@@ -63,16 +63,12 @@ describe('CarroService', () => {
     const producto1 = { id: 1, nombre: 'Producto 1', precio: 100 };
     const producto2 = { id: 2, nombre: 'Producto 2', precio: 200 };
   
-    // Agrega productos al carrito
-    service.agregarAlCarro(producto1); // Cantidad inicial: 1
-    service.agregarAlCarro(producto2); // Cantidad inicial: 1
+    service.agregarAlCarro(producto1);
+    service.agregarAlCarro(producto2);
   
-    // Incrementa manualmente la cantidad del Producto 1
-    service.sumarCantidad(1); // Producto 1: Cantidad ahora es 2
-  
-    // Comprueba los resultados
+    service.sumarCantidad(1);
     const total = service.getTotal();
-    expect(total).toBe(400); // Producto 1: 100*1, Producto 2: 200*1
+    expect(total).toBe(400);
 
   });
   
@@ -83,7 +79,6 @@ describe('CarroService', () => {
     const producto = { id: 1, nombre: 'Producto 1', precio: 100 };
     service.agregarAlCarro(producto);
 
-    // Simula recargar la página
     const nuevoServicio = TestBed.inject(CarroService);
     const items = nuevoServicio.getItems();
     expect(items.length).toBe(1);
