@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CarroService } from '../../services/carro.service';
-import { UserService } from '../../services/usuario.service';
+import { CarroService } from '../../services/carro-service/carro.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 @Component({
   selector: 'app-payment-component',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './payment-component.component.html',
-  styleUrl: './payment-component.component.scss'
+  templateUrl: './payment.component.html',
+  styleUrl: './payment.component.scss'
 })
 export class PaymentComponent implements OnInit {
   items: any[] = [];

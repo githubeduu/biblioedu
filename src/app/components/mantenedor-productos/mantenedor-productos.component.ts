@@ -3,9 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LibroService } from '../../services/libro.service';
-import { UserService } from '../../services/usuario.service';
-import { CarroService } from '../../services/carro.service';
+import { LibroService } from '../../services/libro-service/libro.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
+import { CarroService } from '../../services/carro-service/carro.service';
 
 /**
  * @description

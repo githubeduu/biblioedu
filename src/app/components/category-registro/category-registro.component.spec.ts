@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/usuario.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 describe('CategoryRegistroComponent', () => {
   let component: CategoryRegistroComponent;

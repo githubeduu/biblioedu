@@ -7,7 +7,7 @@ import { CarroComponent } from './components/carro/carro.component';
 import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 import { CuentaComponent } from './components/cuenta/cuenta.component';
 import { CategoryRegistroComponent } from './components/category-registro/category-registro.component';
-import { PaymentComponent } from './components/payment-component/payment-component.component';
+import { PaymentComponent } from './components/payment-component/payment.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },

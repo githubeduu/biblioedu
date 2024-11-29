@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';  // Importa HttpErrorResponse
-import { UserService } from '../../services/usuario.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +19,15 @@ export class LoginComponent {
 
   onSubmit(event: Event) {
     event.preventDefault();
-
-    const username = this.usernameInput.nativeElement.value;
-    const password = this.passwordInput.nativeElement.value;
-
+  
+    const username = this.usernameInput.nativeElement.value.trim();
+    const password = this.passwordInput.nativeElement.value.trim();
+  
+    if (!username || !password) {
+      alert('Por favor, completa ambos campos.');
+      return;
+    }
+  
     this.userService.authenticate(username, password).subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -35,9 +40,15 @@ export class LoginComponent {
         }
       },
       (error: HttpErrorResponse) => {
-        alert('Error de autenticación');
-        console.error('Error al autenticar:', error);
+        // Distingue errores de credenciales inválidas
+        if (error.status === 401) {
+          alert('Contraseña incorrecta');
+        } else {
+          alert('Error de autenticación');
+          console.error('Error al autenticar:', error);
+        }
       }
     );
   }
+  
 }

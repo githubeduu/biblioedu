@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { CarroService } from '../../services/carro.service';
-import { UserService } from '../../services/usuario.service';
+import { CarroService } from '../../services/carro-service/carro.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 /**
  * @description
  * Componente para mostrar y gestionar el carro de compras.
