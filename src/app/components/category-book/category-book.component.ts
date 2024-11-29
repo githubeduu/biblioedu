@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
-import { LibroService } from '../../services/libro.service';
-import { CarroService } from '../../services/carro.service';
-import { UserService } from '../../services/usuario.service';
+import { LibroService } from '../../services/libro-service/libro.service';
+import { CarroService } from '../../services/carro-service/carro.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 @Component({
   selector: 'app-category-book',

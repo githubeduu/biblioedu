@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../services/usuario.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 @Component({
   selector: 'app-recuperar-contrasena',

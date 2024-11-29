@@ -1,24 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IndexComponent } from './index.component';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
+import { PLATFORM_ID } from '@angular/core';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
   let fixture: ComponentFixture<IndexComponent>;
 
+  // Mock para UserService
+  const mockUserService = {
+    getCurrentUser: jasmine.createSpy('getCurrentUser').and.returnValue({ id: 1, name: 'Test User' }),
+    logout: jasmine.createSpy('logout'),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule],
-      declarations: [],
+      imports: [IndexComponent, RouterTestingModule, HttpClientModule], // Usa `imports` para componentes standalone
       providers: [
-        { 
-          provide: ActivatedRoute, 
-          useValue: { params: of({ id: 123 }) } 
-        }
-      ]
+        { provide: UserService, useValue: mockUserService },
+        { provide: PLATFORM_ID, useValue: 'browser' }, // Simula el entorno navegador
+      ],
     }).compileComponents();
   });
 
@@ -28,8 +31,32 @@ describe('IndexComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should initialize currentUser on ngOnInit', () => {
+    component.ngOnInit();
+    expect(mockUserService.getCurrentUser).toHaveBeenCalled();
+    expect(component.currentUser).toEqual({ id: 1, name: 'Test User' });
+  });
+
+  it('should call logout and reset currentUser', () => {
+    component.logout();
+    expect(mockUserService.logout).toHaveBeenCalled();
+    expect(component.currentUser).toBeNull();
+  });
+
+  it('should initialize the carousel with the first slide active', () => {
+    const mockSlides = [
+      { classList: { add: jasmine.createSpy('add'), remove: jasmine.createSpy('remove') } },
+      { classList: { add: jasmine.createSpy('add'), remove: jasmine.createSpy('remove') } },
+    ];
+
+    spyOn(component['el'].nativeElement, 'querySelectorAll').and.returnValue(mockSlides);
+
+    component.ngAfterViewInit();
+
+    expect(mockSlides[0].classList.add).toHaveBeenCalledWith('active');
+  });
 });

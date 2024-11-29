@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { UserService } from '../../services/usuario.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 describe('CuentaComponent', () => {

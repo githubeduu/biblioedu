@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, Inject, PLATFORM_ID, Renderer2 } 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { UserService } from '../../services/usuario.service';
+import { UserService } from '../../services/usuario-service/usuario.service';
 
 @Component({
   standalone: true,
