@@ -41,10 +41,21 @@ export class CarroService {
    * @param producto Producto a agregar al carro.
    */
   agregarAlCarro(producto: any) {
-    this.items.push({ ...producto, cantidad: 1 });
+    const existingItem = this.items.find((item) => item.id === producto.id);
+    if (existingItem) {
+      existingItem.cantidad++;
+    } else {
+      this.items.push({
+        id: producto.id,
+        titulo: producto.titulo,
+        imagenurl: producto.imagenurl,
+        precio: producto.precio,
+        cantidad: 1,
+      });
+    }
     this.updateLocalStorage();
   }
-
+  
     /**
    * Obtiene los elementos del carro de compras.
    * @returns Lista de elementos del carro de compras.

@@ -63,18 +63,7 @@ describe('CategoryBookComponent', () => {
     expect(component.products).toEqual(mockProducts);
   });
 
-  // it('should handle error when fetching products', () => {
-  //   mockLibroService.getAllBook.and.returnValue(throwError(() => new Error('Error fetching products')));
-    
-  //   spyOn(console, 'error'); // Asegúrate de espiar el console.error si lo usas para manejar errores.
-  
-  //   component.ngOnInit();
-  
-  //   expect(component.products).toEqual([]); // Asegúrate de que los productos estén vacíos
-  //   expect(console.error).toHaveBeenCalledWith('Error fetching products', jasmine.any(Error));
-  // }); 
-  
-  
+ 
 
   it('should call agregarAlCarro and show an alert when adding a product to the cart', () => {
     spyOn(window, 'alert');
@@ -91,4 +80,47 @@ describe('CategoryBookComponent', () => {
     expect(mockUserService.logout).toHaveBeenCalled();
     expect(component.currentUser).toBeNull();
   });
+
+  it('should filter products based on searchTerm', () => {
+    // Mock de productos
+    component.products = [
+      { id: 1, titulo: 'Angular Basics', autor: 'John Doe', genero: 'Programming' },
+      { id: 2, titulo: 'Learning TypeScript', autor: 'Jane Smith', genero: 'Programming' },
+      { id: 3, titulo: 'Cooking 101', autor: 'Chef Mike', genero: 'Cooking' },
+    ];
+  
+    // Configurar el término de búsqueda
+    component.searchTerm = 'angular';
+  
+    // Llamar a la función buscarProducto
+    component.buscarProducto(new Event('submit'));
+  
+    // Validar resultados
+    expect(component.filteredProducts).toEqual([
+      { id: 1, titulo: 'Angular Basics', autor: 'John Doe', genero: 'Programming' },
+    ]);
+  });
+  
+
+  it('should return an empty array if no products match the searchTerm', () => {
+    // Mock de productos
+    component.products = [
+      { id: 1, titulo: 'Angular Basics', autor: 'John Doe', genero: 'Programming' },
+      { id: 2, titulo: 'Learning TypeScript', autor: 'Jane Smith', genero: 'Programming' },
+    ];
+  
+    // Configurar un término de búsqueda que no coincida
+    component.searchTerm = 'Cooking';
+  
+    // Llamar a la función buscarProducto
+    component.buscarProducto(new Event('submit'));
+  
+    // Validar resultados
+    expect(component.filteredProducts).toEqual([]);
+  });
+  
+
 });
+
+
+

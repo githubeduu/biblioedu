@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
 import { LibroService } from '../../services/libro-service/libro.service';
 import { CarroService } from '../../services/carro-service/carro.service';
 import { UserService } from '../../services/usuario-service/usuario.service';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-category-book',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule], // Agrega HttpClientModule a imports
+  imports: [CommonModule, RouterModule, FormsModule], // Agrega HttpClientModule a imports
   templateUrl: './category-book.component.html',
   styleUrls: ['./category-book.component.scss']
 })
@@ -17,6 +18,7 @@ export class CategoryBookComponent implements OnInit {
   currentUser: any;
   products: any[] = [];
   filteredProducts: any[] = [];
+  searchTerm: string = '';
 
   constructor(
     private libroService: LibroService,
@@ -32,6 +34,7 @@ export class CategoryBookComponent implements OnInit {
         console.log('Received data:', data); // Verifica los datos recibidos en la consola
         if (Array.isArray(data)) {
           this.products = data;
+          this.filteredProducts = data;
           console.log('Products:', this.products); // Verifica productos filtrados
         } else {
           console.error('Response format is unexpected:', data);
@@ -42,6 +45,16 @@ export class CategoryBookComponent implements OnInit {
         console.error('Error fetching products:', error); // Manejo de errores
         // Puedes añadir lógica adicional para manejar errores
       }
+    );
+  }
+
+  buscarProducto(event: Event): void {
+    event.preventDefault();
+    const search = this.searchTerm.toLowerCase();
+    this.filteredProducts = this.products.filter(product =>
+      product.titulo.toLowerCase().includes(search) ||
+      product.autor.toLowerCase().includes(search) ||
+      product.genero.toLowerCase().includes(search)
     );
   }
 

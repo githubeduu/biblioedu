@@ -4,6 +4,10 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../services/usuario-service/usuario.service';
+import { LibroService } from '../../services/libro-service/libro.service';
+import { catchError, of, tap } from 'rxjs';
+
+
 
 @Component({
   standalone: true,
@@ -14,16 +18,34 @@ import { UserService } from '../../services/usuario-service/usuario.service';
 })
 export class IndexComponent implements AfterViewInit {
   currentUser: any;
+  products: any[] = [];
+  filteredProducts: any[] = [];
 
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private userService: UserService
+    private readonly userService: UserService,
+    private readonly libroService: LibroService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
+  
+    this.libroService.getAllBook().pipe(
+      tap((data: any[]) => {
+        if (Array.isArray(data)) {
+          this.products = data.filter(book => book.id >= 100);
+        } else {
+          this.products = [];
+        }
+      }),
+      catchError((error) => {
+        console.error('Error fetching products:', error);
+        this.products = [];
+        return of([]);
+      })
+    ).subscribe(); // Mantén la suscripción activa para que se ejecute el flujo.
   }
 
   logout() {
@@ -48,4 +70,6 @@ export class IndexComponent implements AfterViewInit {
       }
     }
   }
+
+  
 }

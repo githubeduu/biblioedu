@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { PLATFORM_ID } from '@angular/core';
 import { UserService } from '../../services/usuario-service/usuario.service';
+import { of, throwError } from 'rxjs';
+import { LibroService } from '../../services/libro-service/libro.service';
 
 describe('IndexComponent', () => {
   let component: IndexComponent;
@@ -15,11 +17,22 @@ describe('IndexComponent', () => {
     logout: jasmine.createSpy('logout'),
   };
 
+  const mockLibroService = {
+    getAllBook: jasmine.createSpy('getAllBook').and.returnValue(
+      of([
+        { id: 99, titulo: 'Libro 1' },
+        { id: 100, titulo: 'Libro 2' },
+        { id: 101, titulo: 'Libro 3' },
+      ])
+    ),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IndexComponent, RouterTestingModule, HttpClientModule], // Usa `imports` para componentes standalone
       providers: [
         { provide: UserService, useValue: mockUserService },
+        { provide: LibroService, useValue: mockLibroService},
         { provide: PLATFORM_ID, useValue: 'browser' }, // Simula el entorno navegador
       ],
     }).compileComponents();
@@ -58,5 +71,16 @@ describe('IndexComponent', () => {
     component.ngAfterViewInit();
 
     expect(mockSlides[0].classList.add).toHaveBeenCalledWith('active');
+  });
+
+
+  it('should fetch and filter products with id >= 100 on ngOnInit', () => {
+    component.ngOnInit();
+
+    expect(mockLibroService.getAllBook).toHaveBeenCalled();
+    expect(component.products).toEqual([
+      { id: 100, titulo: 'Libro 2' },
+      { id: 101, titulo: 'Libro 3' },
+    ]);
   });
 });
