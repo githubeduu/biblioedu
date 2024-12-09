@@ -86,4 +86,30 @@
   </div>
 </main>
 
-  
+<main>
+  <section id="bestsellers" class="container mt-4">
+    <h2 class="text-center mb-4">Más Vendidos</h2>
+    <div class="row justify-content-center">
+      <article
+        class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4"
+        *ngFor="let product of products"
+      >
+        <div class="card">
+          <img
+            [src]="product.imagenurl"
+            class="card-img-top"
+            alt="{{ product.nombre }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ product.titulo }}</h5>
+            <p class="card-text">{{ product.autor }}</p>
+            <p class="card-text">{{ product.anioPublicacion }}</p>
+            <p class="card-text price">
+              Precio: ${{ product.precio | number:'1.0-0' }}
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>

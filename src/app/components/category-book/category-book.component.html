@@ -54,10 +54,24 @@
     </div>
   </nav>
 </header>
-<main>
+<main> 
+   <!-- Buscador -->
+   <form class="d-flex ms-auto" (submit)="buscarProducto($event)" style="max-width: 300px;">
+    <input
+      class="form-control border-end-0 rounded-start"
+      type="search"
+      placeholder="Buscador"
+      aria-label="Search"
+      [(ngModel)]="searchTerm"
+      name="searchTerm"
+    />
+    <button class="btn btn-primary border-start-0 rounded-end" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
   <section id="games" class="container mt-4">
     <div class="row">
-      <article class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+      <article class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
         <div class="card">
           <img [src]="product.imagenurl" class="card-img-top" alt="{{product.nombre}}">
           <div class="card-body">
@@ -65,11 +79,11 @@
             <p class="card-text">{{product.autor}}</p>
             <p class="card-text">{{product.anioPublicacion}}</p>
             <p class="card-text">{{product.genero}}</p>
-            <p class="card-text price">Precio: {{product.precio}}</p>
-            <button class="btn btn-primary" (click)="agregarAlCarro({ nombre: product.nombre, precio: product.precio, id: product.id })">Agregar al Carrito</button>
+            <p class="card-text price">Precio: ${{product.precio | number:'1.0-0'}}</p>
+            <button class="btn btn-primary" (click)="agregarAlCarro({ id: product.id, titulo: product.titulo,  imagenurl: product.imagenurl, precio: product.precio })">Agregar al Carrito</button>
           </div>
         </div>
-      </article>
+      </article>      
     </div>
   </section>
 </main>

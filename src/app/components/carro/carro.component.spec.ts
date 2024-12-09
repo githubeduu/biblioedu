@@ -44,34 +44,34 @@ describe('CarroComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('debería crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize currentUser on ngOnInit', () => {
+  it('debería inicializar currentUser en ngOnInit', () => {
     component.ngOnInit();
     expect(userService.getCurrentUser).toHaveBeenCalled();
     expect(component.currentUser).toEqual({ id: 1, name: 'Test User' });
   });
 
-  it('should call borrarDeCarro when an item is removed', () => {
+  it('debería llamar a borrarDeCarro cuando se elimina un elemento', () => {
     const mockItem = { id: 1, name: 'Product 1', precio: 10, cantidad: 1 };
     component.borrarDeCarro(mockItem);
     expect(carroService.borrarDeCarro).toHaveBeenCalledWith(mockItem);
   });
 
-  it('should call logout and set currentUser to null', () => {
+  it('debería llamar a logout y establecer currentUser a null', () => {
     component.logout();
     expect(userService.logout).toHaveBeenCalled();
     expect(component.currentUser).toBeNull();
   });
 
-  it('should track items by their ID using trackById', () => {
+  it('debería rastrear los elementos por su ID usando trackById', () => {
     const mockItem = { id: 1, name: 'Product 1', precio: 10, cantidad: 1 };
     expect(component.trackById(0, mockItem)).toBe(1);
   });
 
-  it('should set isLoading to true and navigate to payment on pagar', (done) => {
+  it('debería establecer isLoading en true y navegar a payment al llamar a pagar', (done) => {
     spyOn(router, 'navigate');
 
     component.pagar();
@@ -84,7 +84,7 @@ describe('CarroComponent', () => {
     }, 2000);
   });
 
-  it('should fetch items from CarroService', () => {
+  it('debería obtener elementos desde CarroService', () => {
     const items = component.carroService.getItems();
     expect(carroService.getItems).toHaveBeenCalled();
     expect(items).toEqual([{ id: 1, name: 'Product 1', precio: 10, cantidad: 1 }]);

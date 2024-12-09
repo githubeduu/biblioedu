@@ -46,37 +46,26 @@ describe('CategoryBookComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('debería crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize currentUser on ngOnInit', () => {
+  it('debería inicializar currentUser en ngOnInit', () => {
     component.ngOnInit();
     expect(mockUserService.getCurrentUser).toHaveBeenCalled();
     expect(component.currentUser).toEqual({ id: 1, name: 'Test User' });
   });
 
-  it('should fetch products on ngOnInit', () => {
+  it('debería obtener productos en ngOnInit', () => {
     const mockProducts = [{ id: 1, titulo: 'Book 1' }, { id: 2, titulo: 'Book 2' }];
     mockLibroService.getAllBook.and.returnValue(of(mockProducts));
     component.ngOnInit();
     expect(component.products).toEqual(mockProducts);
   });
 
-  // it('should handle error when fetching products', () => {
-  //   mockLibroService.getAllBook.and.returnValue(throwError(() => new Error('Error fetching products')));
-    
-  //   spyOn(console, 'error'); // Asegúrate de espiar el console.error si lo usas para manejar errores.
-  
-  //   component.ngOnInit();
-  
-  //   expect(component.products).toEqual([]); // Asegúrate de que los productos estén vacíos
-  //   expect(console.error).toHaveBeenCalledWith('Error fetching products', jasmine.any(Error));
-  // }); 
-  
-  
+ 
 
-  it('should call agregarAlCarro and show an alert when adding a product to the cart', () => {
+  it('debería llamar a agregarAlCarro y mostrar una alerta al agregar un producto al carrito', () => {
     spyOn(window, 'alert');
     const mockProduct = { id: 1, titulo: 'Test Product' };
 
@@ -86,9 +75,52 @@ describe('CategoryBookComponent', () => {
     expect(window.alert).toHaveBeenCalledWith('Producto Agregado correctamente');
   });
 
-  it('should call logout and reset currentUser', () => {
+  it('debería llamar a logout y restablecer currentUser', () => {
     component.logout();
     expect(mockUserService.logout).toHaveBeenCalled();
     expect(component.currentUser).toBeNull();
   });
+
+  it('debería filtrar los productos según el término de búsqueda (searchTerm)', () => {
+    // Mock de productos
+    component.products = [
+      { id: 1, titulo: 'Angular Basics', autor: 'John Doe', genero: 'Programming' },
+      { id: 2, titulo: 'Learning TypeScript', autor: 'Jane Smith', genero: 'Programming' },
+      { id: 3, titulo: 'Cooking 101', autor: 'Chef Mike', genero: 'Cooking' },
+    ];
+  
+    // Configurar el término de búsqueda
+    component.searchTerm = 'angular';
+  
+    // Llamar a la función buscarProducto
+    component.buscarProducto(new Event('submit'));
+  
+    // Validar resultados
+    expect(component.filteredProducts).toEqual([
+      { id: 1, titulo: 'Angular Basics', autor: 'John Doe', genero: 'Programming' },
+    ]);
+  });
+  
+
+  it('debería devolver un array vacío si ningún producto coincide con el término de búsqueda (searchTerm)', () => {
+    // Mock de productos
+    component.products = [
+      { id: 1, titulo: 'Angular Basics', autor: 'John Doe', genero: 'Programming' },
+      { id: 2, titulo: 'Learning TypeScript', autor: 'Jane Smith', genero: 'Programming' },
+    ];
+  
+    // Configurar un término de búsqueda que no coincida
+    component.searchTerm = 'Cooking';
+  
+    // Llamar a la función buscarProducto
+    component.buscarProducto(new Event('submit'));
+  
+    // Validar resultados
+    expect(component.filteredProducts).toEqual([]);
+  });
+  
+
 });
+
+
+

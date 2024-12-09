@@ -11,11 +11,6 @@ body {
   min-height: 100vh;
 }
 
-.carousel-inner img {
-  width: 100%;
-  height: auto;
-}
-
 .navbar-nav .nav-link {
   cursor: pointer;
 }
@@ -302,4 +297,97 @@ table {
     color: #007bff;
   }
 
+}
+
+
+.carousel-inner img {
+  width: 100%;
+  max-height: 430px; /* Altura máxima */
+  object-fit: cover; /* Ajusta la imagen sin deformarla */
+  margin: 0 auto; /* Centra la imagen */
+}
+
+
+#bestsellers {
+  text-align: center;
+
+  .row {
+    display: flex;
+    flex-wrap: nowrap; /* Asegura que estén en una sola línea */
+    overflow-x: auto; /* Habilita scroll horizontal si no caben */
+    gap: 15px; /* Espacio entre las tarjetas */
+    justify-content: center; /* Centra las tarjetas */
+  }
+
+  .card {
+    width: 186px; /* Aumentado un 20% desde 155px */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+
+    .card-img-top {
+      width: 100%;
+      height: auto;
+      max-height: 231px; /* Aumentado un 20% desde 193px */
+      object-fit: cover; /* Mantiene la proporción */
+    }
+
+    .card-body {
+      padding: 12px; /* Un poco más de espacio para mantener equilibrio */
+    }
+
+    .card-title {
+      font-size: 1.2rem; /* Tamaño de texto ligeramente más grande */
+      font-weight: bold;
+    }
+
+    .card-text.price {
+      font-size: 1.4rem; /* Resaltar precio */
+      color: #ff6600; /* Color destacado */
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #bestsellers .row {
+    flex-wrap: wrap; /* En dispositivos pequeños, permite que las tarjetas se apilen */
+  }
+
+  #bestsellers .card {
+    width: calc(50% - 15px); /* Ocupa el 50% del ancho con el ajuste del gap */
+  }
+}
+
+@media (max-width: 576px) {
+  #bestsellers .card {
+    width: calc(100% - 15px); /* Ocupa todo el ancho en móviles */
+  }
+}
+
+form.d-flex {
+  max-width: 300px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+form.d-flex input {
+  border-right: none;
+}
+
+form.d-flex button {
+  margin-left: -2px;
 }
