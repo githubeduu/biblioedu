@@ -44,23 +44,23 @@ describe('IndexComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('debería crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize currentUser on ngOnInit', () => {
+  it('debería inicializar currentUser en ngOnInit', () => {
     component.ngOnInit();
     expect(mockUserService.getCurrentUser).toHaveBeenCalled();
     expect(component.currentUser).toEqual({ id: 1, name: 'Test User' });
   });
 
-  it('should call logout and reset currentUser', () => {
+  it('debería llamar a logout y restablecer currentUser', () => {
     component.logout();
     expect(mockUserService.logout).toHaveBeenCalled();
     expect(component.currentUser).toBeNull();
   });
 
-  it('should initialize the carousel with the first slide active', () => {
+  it('debería inicializar el carrusel con la primera diapositiva activa', () => {
     const mockSlides = [
       { classList: { add: jasmine.createSpy('add'), remove: jasmine.createSpy('remove') } },
       { classList: { add: jasmine.createSpy('add'), remove: jasmine.createSpy('remove') } },
@@ -74,7 +74,7 @@ describe('IndexComponent', () => {
   });
 
 
-  it('should fetch and filter products with id >= 100 on ngOnInit', () => {
+  it('debería obtener y filtrar los productos con id >= 100 en ngOnInit', () => {
     component.ngOnInit();
 
     expect(mockLibroService.getAllBook).toHaveBeenCalled();

@@ -2,5 +2,5 @@ projectKey=biblioedu
 serverUrl=http://localhost:9000
 serverVersion=10.7.0.96327
 dashboardUrl=http://localhost:9000/dashboard?id=biblioedu
-ceTaskId=11dc36c8-2164-4c4e-ad68-1624aef75806
-ceTaskUrl=http://localhost:9000/api/ce/task?id=11dc36c8-2164-4c4e-ad68-1624aef75806
+ceTaskId=7a92dad4-5e49-4abf-98f0-54e356866612
+ceTaskUrl=http://localhost:9000/api/ce/task?id=7a92dad4-5e49-4abf-98f0-54e356866612
