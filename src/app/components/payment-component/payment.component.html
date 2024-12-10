@@ -54,17 +54,37 @@
       </div>
     </nav>
   </header>
-  <div class="container mt-5">
-    <h1>Detalles de la Compra</h1>
-    <div *ngFor="let item of items" class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">{{ item.titulo }}</h5>
-        <p class="card-text">Precio: ${{ item.precio | number:'1.0-0' }}</p>
-        <p class="card-text">Cantidad: {{ item.cantidad }}</p>
-        <p class="card-text subtotal">Subtotal: ${{ item.precio * item.cantidad | number:'1.0-0'}}</p>
-      </div>
-    </div>
-    <h3 class="total-text">Total: ${{ total | number:'1.0-0' }}</h3>
-  </div>
-  
+ <body>
+  <main>
+    <div class="container mt-5">
+      <h1>Detalles de la Compra</h1>
+      <table class="table-payment">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio Unitario</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.fecha | date:'dd/MM/yyyy' }}</td>
+            <td>{{ item.titulo }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ item.precio | number:'1.0-0' }}</td>
+            <td>${{ item.precio * item.cantidad | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="text-end"><strong>Total:</strong></td>
+            <td>${{ total | number:'1.0-0' }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>    
+  </main>
+ </body>
   
