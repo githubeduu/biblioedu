@@ -56,19 +56,19 @@
 </header>
 <main class="container">
   <div class="row">
+    <!-- Columna de productos -->
     <div class="col-md-8">
       <h1>Carro</h1>
-      <div *ngFor="let item of carroService.getItems(); trackBy: trackById" class="card mb-3">
+      <div *ngFor="let item of carroService.getItems(); trackBy: trackById" class="card card-carro mb-3">
         <div class="row g-0">
           <div class="col-md-3">
             <!-- Imagen del producto -->
             <img [src]="item.imagenurl" class="img-fluid rounded-start" alt="{{item.nombre}}" />
           </div>
           <div class="col-md-9">
-            <div class="card-body">
-              <!-- Nombre del libro -->
+            <div class="card-body card-body-carro">
               <p class="card-text">Titulo: {{ item.titulo }}</p>
-              <p class="card-text">Precio: ${{ item.precio | number:'1.0-0'}}</p>
+              <p class="card-text">Precio: ${{ item.precio | number:'1.0-0' }}</p>
               <p class="card-text">Cantidad: {{ item.cantidad }}</p>
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-danger" (click)="borrarDeCarro(item)">Eliminar</button>
@@ -80,12 +80,13 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
+    <!-- Columna de total -->
+    <div class="col-md-4 d-flex">
+      <div class="card card-total-carro align-self-start">
+        <div class="card-body text-center">
           <h5 class="card-title">Total</h5>
-          <p class="card-text">Total: ${{ carroService.getTotal() | number:'1.0-0'}}</p>
-          <button type="button" class="btn btn-primary" (click)="pagar()" [disabled]="isLoading">Pagar</button>
+          <p class="card-text font-weight-bold">Total: ${{ carroService.getTotal() | number:'1.0-0' }}</p>
+          <button type="button" class="btn btn-primary w-100" (click)="pagar()" [disabled]="isLoading">Pagar</button>
           <div *ngIf="isLoading" class="spinner">
             <span>Cargando...</span>
           </div>
@@ -94,5 +95,9 @@
     </div>
   </div>
 </main>
+
+
+
+
 
 
