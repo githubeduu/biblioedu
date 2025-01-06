@@ -1,6 +1,6 @@
 {
   "name": "biblioedu",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/platform-server": "^18.2.10",
     "@angular/router": "^18.2.0",
+    "@azure/msal-angular": "^3.1.0",
+    "@azure/msal-browser": "^3.28.0",
     "biblioedu": "file:",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
